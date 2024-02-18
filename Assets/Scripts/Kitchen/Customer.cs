@@ -20,6 +20,8 @@ namespace CookingPrototype.Kitchen {
 		float       _timer    = 0f;
 		bool        _isActive = false;
 
+		public float GetTimer() => _timer;
+		
 		public float WaitTime {
 			get { return CustomersController.Instance.CustomerWaitTime - _timer; }
 		}

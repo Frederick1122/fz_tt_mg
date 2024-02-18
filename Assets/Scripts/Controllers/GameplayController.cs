@@ -14,7 +14,7 @@ namespace CookingPrototype.Controllers {
 		public GameObject TapBlock   = null;
 		public WinWindow  WinWindow  = null;
 		public LoseWindow LoseWindow = null;
-
+		public StartWindow StartWindow = null;
 
 		int _ordersTarget = 0;
 
@@ -37,6 +37,10 @@ namespace CookingPrototype.Controllers {
 			Instance = this;
 		}
 
+		void Start() {
+			Init();
+		}
+
 		void OnDestroy() {
 			if ( Instance == this ) {
 				Instance = null;
@@ -45,14 +49,20 @@ namespace CookingPrototype.Controllers {
 
 		void Init() {
 			TotalOrdersServed = 0;
-			Time.timeScale = 1f;
+			Time.timeScale = 0f;
 			TotalOrdersServedChanged?.Invoke();
+			StartWindow.Show();
 		}
 
 		public void CheckGameFinish() {
 			if ( CustomersController.Instance.IsComplete ) {
 				EndGame(TotalOrdersServed >= OrdersTarget);
 			}
+		}
+		
+		public void StartGame() {
+			StartWindow.Hide();
+			Time.timeScale = 1f;
 		}
 
 		void EndGame(bool win) {
